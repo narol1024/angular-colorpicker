@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/linjinying/angular-circle-slider.git"
+    "url": "git+https://github.com/linjinying/angular-colorpicker.git"
   },
   "keywords": [
     "colorpicker",
@@ -21,9 +21,9 @@
   "author": "linjinying",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/linjinying/angular-circle-slider/issues"
+    "url": "https://github.com/linjinying/angular-colorpicker/issues"
   },
-  "homepage": "https://github.com/linjinying/angular-circle-slider#readme",
+  "homepage": "https://github.com/linjinying/angular-colorpicker#readme",
   "dependencies": {
     "gulp": "^3.9.0",
     "gulp-minify-css": "^1.2.3",
