@@ -18,6 +18,7 @@
 ####Basic Usage
 ```html
 <colorpicker color="color" color-type="rgba"></colorpicker>
+var app = angular.module('app',['ui.colorpicker']);
 ```
 
 #### Options
