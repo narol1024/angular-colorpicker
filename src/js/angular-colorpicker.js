@@ -79,6 +79,10 @@ angular.module('ui.colorpicker', [])
                 b: 1,
                 a: 1
             },
+            'rgb': function() {
+                var rgb = this.toRGB();
+                return 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
+            },
             'rgba': function() {
                 var rgb = this.toRGB();
                 return 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + rgb.a + ')';
@@ -379,9 +383,8 @@ angular.module('ui.colorpicker', [])
             };
             $scope.selectColorBox = function(item, index) {
                 pickerColor.setColor(item);
-                $scope.color = item;
+                $scope.color = pickerColor[thisFormat]();
                 previewColor();
-
             };
             $scope.cancel = function() {
                 $scope.color = lastColor;
@@ -475,6 +478,7 @@ angular.module('ui.colorpicker', [])
 
             var update = function() {
                 var newColor = pickerColor[thisFormat]();
+
                 pickerColor.setColor(newColor);
                 $pickerColorPointers.eq(0).css({
                     left: pickerColor.value.s * 200 + 'px',
