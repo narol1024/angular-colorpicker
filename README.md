@@ -7,7 +7,7 @@
 
 一个基于angularJS的颜色选择器(a color picker based on angularJS)，目前具备一下功能：
 - **3种模式** 经典模式、自定义选择模式、历史记录
-- **支持的颜色格式** 目前仅支持rgba
+- **支持的颜色格式** 目前仅支持rgb,rgba,hex
 
 ####Requirements
 - **jquery**
@@ -26,7 +26,7 @@ var app = angular.module('app',['ui.colorpicker']);
 
 #### Options
 - **color**  颜色值
-- **color-type** 颜色格式
+- **color-type** 颜色格式(rgb,rgba,hex)
 
 #### Support
 `ie9+`  `chrome` `firefox` `safari`
