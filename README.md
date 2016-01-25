@@ -4,6 +4,8 @@
 ####Demo
 ===========================
 [Demo](http://w3cin.com/demo/angular-colorpicker/example/index.html)
+
+
 一个基于angularJS的颜色选择器(a color picker based on angularJS)，目前具备一下功能：
 - **3种模式** 经典模式、自定义选择模式、历史记录
 - **支持的颜色格式** 目前仅支持rgba
