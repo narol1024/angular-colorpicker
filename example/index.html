@@ -15,13 +15,14 @@
 </head>
 
 <body ng-app="app" ng-controller="ctrl">
-<colorpicker color="color" color-type="rgb"></colorpicker>{{color}}
+<colorpicker color="color" color-type="hex"></colorpicker>
+<p ng-bind="color"></p>
 </body>
 <script src="../src/js/angular-colorpicker.js"></script>
 <script>
 var app = angular.module('app', ['ui.colorpicker']);
 app.controller('ctrl', ['$scope', function($scope) {
-    $scope.color = "#ff0000";
+    $scope.color = "#fff";
 }])
 </script>
 </html>

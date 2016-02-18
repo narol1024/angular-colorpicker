@@ -326,6 +326,7 @@ angular.module('ui.colorpicker', [])
                 "rgba(0,0,0,1)"
             ];
             $scope.historyColorboxs = [];
+            var cookieName = 'historyColor-'+attrs.colorType;
             var thisFormat = attrs.colorType;
             var target = angular.element(document.body);
             var template =
@@ -353,7 +354,9 @@ angular.module('ui.colorpicker', [])
                 '     </div>' +
                 '     <div class="tab-historyColorbox" ng-show="colorTab ===3">' +
                 '       <div ng-repeat="item in historyColorboxs">' +
-                '          <div class="color-unit" ng-attr-style="background-color:{{::item}}" ng-class="{true:\'active\',false:\'\'}[color === item]" ng-click="selectColorBox(item,$index)"></div>' +
+                '           <div class="color-unit-wrap">' +
+                '               <div class="color-unit" ng-attr-style="background-color:{{::item}}" ng-class="{true:\'active\',false:\'\'}[color === item]" ng-click="selectColorBox(item,$index)"></div>' +
+                '           </div>' +
                 '       </div>' +
                 '     </div>' +
                 '     <div class="btn-group">' +
@@ -434,17 +437,9 @@ angular.module('ui.colorpicker', [])
 
 
             var previewColor = function() {
-                try {
-                    $colorpickerPreview.find('.color-text').text(pickerColor[thisFormat]());
-                    $colorpickerPreview.find('.inner').css('backgroundColor', pickerColor[thisFormat]());
-                } catch (e) {
-                    $colorpickerPreview.find('.color-text').text(pickerColor[thisFormat]());
-                    $colorpickerPreview.find('.inner').css('backgroundColor', pickerColor.toHex());
-                }
+                $colorpickerPreview.find('.color-text').text(pickerColor[thisFormat]());
+                $colorpickerPreview.find('.inner').css('backgroundColor', pickerColor[thisFormat]());
                 $sliderSaturation.css('backgroundColor', pickerColor.toHex(pickerColor.value.h, 1, 1, 1));
-                if (thisFormat === 'rgba') {
-                    sliderAlpha.css.backgroundColor = pickerColor.toHex();
-                }
             };
 
             var mousemove = function(event) {
@@ -478,7 +473,6 @@ angular.module('ui.colorpicker', [])
 
             var update = function() {
                 var newColor = pickerColor[thisFormat]();
-
                 pickerColor.setColor(newColor);
                 $pickerColorPointers.eq(0).css({
                     left: pickerColor.value.s * 200 + 'px',
@@ -541,17 +535,20 @@ angular.module('ui.colorpicker', [])
 
             var showColorpickerTemplate = function(event) {
                 lastColor = angular.copy($scope.color);
+                pickerColor.setColor(lastColor);
                 update();
+                var cookieColorArr = Helper.getCookie(cookieName);
+                cookieColorArr = cookieColorArr === null ? []:cookieColorArr.split("|");
                 $scope.$apply(function() {
                     $scope.show = true;
-                    $scope.historyColorboxs = Helper.getCookie('historyColor').split("|");
+                    $scope.historyColorboxs = cookieColorArr;
                 });
                 $colorpicker.css(getColorpickerTemplatePosition(event));
                 $mask.css({
-                    'z-index': parseInt(new Date().getTime())
+                    'z-index': parseInt(new Date().getTime(),10)
                 });
                 $colorpicker.css({
-                    'z-index': parseInt(new Date().getTime())
+                    'z-index': parseInt(new Date().getTime(),10)
                 });
             };
 
@@ -569,7 +566,7 @@ angular.module('ui.colorpicker', [])
             };
             var setColorCookie = function() {
                 var cookieValue = pickerColor[thisFormat]();
-                var cookieName = 'historyColor';
+
                 if (Helper.enabledCookie(cookieName)) {
                     var lastCookieValue = Helper.getCookie(cookieName);
                     var lastCookieArray = lastCookieValue.split("|");
