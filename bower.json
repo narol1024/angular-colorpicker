@@ -1,7 +1,10 @@
 {
   "name": "angular-colorpicker",
   "description": "angular-colorpicker",
-  "main": [],
+  "main": [
+    "dist/js/angular-colorpicker.min.js", 
+    "dist/css/angular-colorpicker.min.css"
+  ],
   "dependencies" : {
       "angular-translate": "~2.10.0"
   },

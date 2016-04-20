@@ -2,7 +2,8 @@
   "name": "angular-colorpicker",
   "version": "1.0.1",
   "description": "angular-colorpicker",
-  "main": "index.js",
+  "main": "./dist/js/angular-colorpicker.min.js",
+  "style": "./dist/css/angular-colorpicker.min.css",
   "directories": {
     "example": "example"
   },
