@@ -3,7 +3,35 @@
  * time:2016-1-14
  * plugin-name: ui.colorpicker
  */
-angular.module('ui.colorpicker', [])
+angular.module('ui.colorpicker', ['pascalprecht.translate'])
+    .config(['$translateProvider',function($translateProvider) {
+        $translateProvider.translations('jp', {
+            "PALLETE" : "经典",
+            "WHELL"   : "自定义",
+            "HISTORY" : "历史记录",
+            "SELECT"  : "选择",
+            "CANCEL"  : "取消"
+        });
+
+        $translateProvider.translations('en', {
+            "PALLETE" : "Pallete",
+            "WHELL"   : "Whell",
+            "HISTORY" : "History",
+            "SELECT"  : "Select",
+            "CANCEL"  : "Cancel"
+        });
+
+        $translateProvider.translations('pt', {
+            "PALLETE" : "Paleta",
+            "WHELL"   : "Personalizar",
+            "HISTORY" : "Recentes",
+            "SELECT"  : "Selecionar",
+            "CANCEL"  : "Cancelar"
+        });
+
+        $translateProvider.preferredLanguage('en');
+
+    }])
     .factory('colorpicker.helper', ['$document', function($document) {
         return {
             setCookie: function(name, value) {
@@ -325,6 +353,7 @@ angular.module('ui.colorpicker', [])
                 "rgba(83,88,95,1)",
                 "rgba(0,0,0,1)"
             ];
+
             $scope.historyColorboxs = [];
             var cookieName = 'historyColor-'+attrs.colorType;
             var thisFormat = attrs.colorType;
@@ -336,9 +365,9 @@ angular.module('ui.colorpicker', [])
                 '       <div class="inner">' +
                 '       <div class="color-text"></div>' +
                 '       <div class="color-tabs">' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 1]" ng-click="toggleTab(1)">经典</div>' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 2]" ng-click="toggleTab(2)">自定义</div>' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 3]" ng-click="toggleTab(3)">历史记录</div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 1]" ng-click="toggleTab(1)" translate="PALLETE"></div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 2]" ng-click="toggleTab(2)" translate="WHELL"></div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 3]" ng-click="toggleTab(3)" translate="HISTORY"></div>' +
                 '       </div>' +
                 '       </div>' +
                 '     </div>' +
@@ -360,8 +389,8 @@ angular.module('ui.colorpicker', [])
                 '       </div>' +
                 '     </div>' +
                 '     <div class="btn-group">' +
-                '        <button class="cancel" ng-click="cancel()">取消</button>' +
-                '        <button class="select" ng-click="select()">选择</button>' +
+                '        <button class="cancel" ng-click="cancel()" translate="CANCEL"></button>' +
+                '        <button class="select" ng-click="select()" translate="SELECT"></button>' +
                 '     </div>' +
                 '</div>',
                 colorpickerTemplate = angular.element(template),
@@ -437,8 +466,13 @@ angular.module('ui.colorpicker', [])
 
 
             var previewColor = function() {
+
+                var textColor = pickerColor.value.b > 0.5 ? '#000000' : '#FFFFFF';
+
                 $colorpickerPreview.find('.color-text').text(pickerColor[thisFormat]());
                 $colorpickerPreview.find('.inner').css('backgroundColor', pickerColor[thisFormat]());
+                $colorpickerPreview.find('.color-tabs').css('color', textColor);
+                $colorpickerPreview.find('.color-text').css('color', textColor);
                 $sliderSaturation.css('backgroundColor', pickerColor.toHex(pickerColor.value.h, 1, 1, 1));
             };
 

@@ -6,7 +6,8 @@
     <title>angular-colorpicker</title>
     <link rel="stylesheet" href="../src/css/angular-colorpicker.css">
     <script src="../src/libs/js/jquery.js"></script>
-    <script src="../src/libs/js/angular-1.4.8.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-translate/angular-translate.js"></script>
     <style>
 		body{
 			background-color: #ccc;
@@ -17,12 +18,24 @@
 <body ng-app="app" ng-controller="ctrl">
 <colorpicker color="color" color-type="hex"></colorpicker>
 <p ng-bind="color"></p>
+
+    <p>
+        <button ng-click="changeLanguage('pt')">PT</button>
+        <button ng-click="changeLanguage('jp')">JP</button>
+        <button ng-click="changeLanguage('en')">EN</button>
+    </p>
+
 </body>
 <script src="../src/js/angular-colorpicker.js"></script>
 <script>
 var app = angular.module('app', ['ui.colorpicker']);
-app.controller('ctrl', ['$scope', function($scope) {
+app.controller('ctrl', ['$scope', '$translate', function($scope, $translate) {
     $scope.color = "#fff";
-}])
+
+    $scope.changeLanguage = function(lang) {
+        $translate.use(lang);
+    }
+
+}]);
 </script>
 </html>

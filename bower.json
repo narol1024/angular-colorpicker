@@ -2,6 +2,9 @@
   "name": "angular-colorpicker",
   "description": "angular-colorpicker",
   "main": [],
+  "dependencies" : {
+      "angular-translate": "~2.10.0"
+  },
   "authors": [
     "linjinying"
   ],
