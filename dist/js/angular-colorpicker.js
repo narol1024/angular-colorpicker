@@ -1,37 +1,33 @@
 /**
- * 作者:linjinying
- * time:2016-1-14
- * plugin-name: ui.colorpicker
+ * author:narol
+ * create Date:2016-1-14
+ * update Date:2016-05-30
+ * component-name: ui.colorpicker
  */
-angular.module('ui.colorpicker', ['pascalprecht.translate'])
-    .config(['$translateProvider',function($translateProvider) {
-        $translateProvider.translations('jp', {
-            "PALLETE" : "经典",
-            "WHELL"   : "自定义",
-            "HISTORY" : "历史记录",
-            "SELECT"  : "选择",
-            "CANCEL"  : "取消"
-        });
-
-        $translateProvider.translations('en', {
-            "PALLETE" : "Pallete",
-            "WHELL"   : "Whell",
-            "HISTORY" : "History",
-            "SELECT"  : "Select",
-            "CANCEL"  : "Cancel"
-        });
-
-        $translateProvider.translations('pt', {
-            "PALLETE" : "Paleta",
-            "WHELL"   : "Personalizar",
-            "HISTORY" : "Recentes",
-            "SELECT"  : "Selecionar",
-            "CANCEL"  : "Cancelar"
-        });
-
-        $translateProvider.preferredLanguage('en');
-
-    }])
+angular.module('ui.colorpicker', [])
+    .value('colorpicker.language', {
+        "zh-CN": {
+            "PALLETE": "经典",
+            "WHELL": "自定义",
+            "HISTORY": "历史记录",
+            "SELECT": "选择",
+            "CANCEL": "取消"
+        },
+        "en": {
+            "PALLETE": "Pallete",
+            "WHELL": "Whell",
+            "HISTORY": "History",
+            "SELECT": "Select",
+            "CANCEL": "Cancel"
+        },
+        "pt": {
+            "PALLETE": "Paleta",
+            "WHELL": "Personalizar",
+            "HISTORY": "Recentes",
+            "SELECT": "Selecionar",
+            "CANCEL": "Cancelar"
+        }
+    })
     .factory('colorpicker.helper', ['$document', function($document) {
         return {
             setCookie: function(name, value) {
@@ -207,8 +203,7 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
     }])
     .factory('colorpicker.slider', function() {
         'use strict';
-        var
-            slider = {
+        var slider = {
                 maxLeft: 0,
                 maxTop: 0,
                 callLeft: null,
@@ -308,7 +303,7 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
         };
     })
 
-.directive('colorpicker', ['$document', '$compile', 'colorpicker.transColor', 'colorpicker.slider', 'colorpicker.helper', function($document, $compile, Color, Slider, Helper) {
+.directive('colorpicker', ['$document', '$compile', 'colorpicker.language','colorpicker.transColor', 'colorpicker.slider', 'colorpicker.helper', function($document, $compile, $language,Color, Slider, Helper) {
     'use strict';
     return {
         restrict: 'AE',
@@ -350,14 +345,23 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                 "rgba(255,255,255,1)",
                 "rgba(220,222,224,1)",
                 "rgba(166,170,169,1)",
+                "rgba(114,114,114,1)",
                 "rgba(83,88,95,1)",
                 "rgba(0,0,0,1)"
             ];
-
             $scope.historyColorboxs = [];
-            var cookieName = 'historyColor-'+attrs.colorType;
-            var thisFormat = attrs.colorType;
+            var languageWords = $language[attrs.colorLanguage || "zh-CN"];
+            console.info(languageWords);
+            var thisFormat = (attrs.colorType || "hex");
+            var cookieName = 'historyColor-' + thisFormat;
             var target = angular.element(document.body);
+            /*
+            "PALLETE": "经典",
+            "WHELL": "自定义",
+            "HISTORY": "历史记录",
+            "SELECT": "选择",
+            "CANCEL": "取消"
+             */
             var template =
                 '<div class="colorpicker-mask" ng-show="show" ng-click="select()"></div>' +
                 '<div class="colorpicker dropdown" ng-show="show">' +
@@ -365,9 +369,9 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                 '       <div class="inner">' +
                 '       <div class="color-text"></div>' +
                 '       <div class="color-tabs">' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 1]" ng-click="toggleTab(1)" translate="PALLETE"></div>' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 2]" ng-click="toggleTab(2)" translate="WHELL"></div>' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 3]" ng-click="toggleTab(3)" translate="HISTORY"></div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 1]" ng-click="toggleTab(1)">'+languageWords["PALLETE"]+'</div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 2]" ng-click="toggleTab(2)">'+languageWords["WHELL"]+'</div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 3]" ng-click="toggleTab(3)">'+languageWords["HISTORY"]+'</div>' +
                 '       </div>' +
                 '       </div>' +
                 '     </div>' +
@@ -389,9 +393,10 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                 '       </div>' +
                 '     </div>' +
                 '     <div class="btn-group">' +
-                '        <button class="cancel" ng-click="cancel()" translate="CANCEL"></button>' +
-                '        <button class="select" ng-click="select()" translate="SELECT"></button>' +
+                '        <div class="cancel" ng-click="cancel()">'+languageWords["CANCEL"]+'</div>' +
+                '        <div class="select" ng-click="select()">'+languageWords["SELECT"]+'</div>' +
                 '     </div>' +
+                '     <div class="colorpicker-caret"></div>' +
                 '</div>',
                 colorpickerTemplate = angular.element(template),
                 $mask = colorpickerTemplate.eq(0),
@@ -399,8 +404,8 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                 $sliderHue = $colorpicker.find('.colorpicker-hue'),
                 $sliderSaturation = $colorpicker.find('.colorpicker-saturation'),
                 $colorpickerPreview = $colorpicker.find('.colorpicker-preview'),
-                $pickerColorPointers = $colorpicker.find('i');
-
+                $pickerColorPointers = $colorpicker.find('i'),
+                $colorpickerCaret = $colorpicker.find('.colorpicker-caret');
             $compile(colorpickerTemplate)($scope);
             target.append(colorpickerTemplate);
 
@@ -409,6 +414,7 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
             var lastColor;
             var scrollTimer;
             var historyColorLength = 24;
+            var caretPosition;
             $scope.toggleTab = function(tab) {
                 $scope.colorTab = tab;
                 update();
@@ -466,14 +472,18 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
 
 
             var previewColor = function() {
-
                 var textColor = pickerColor.value.b > 0.5 ? '#000000' : '#FFFFFF';
-
-                $colorpickerPreview.find('.color-text').text(pickerColor[thisFormat]());
-                $colorpickerPreview.find('.inner').css('backgroundColor', pickerColor[thisFormat]());
+                var selectedColor = pickerColor[thisFormat]();
+                $colorpickerPreview.find('.color-text').text(selectedColor);
+                $colorpickerPreview.find('.inner').css('backgroundColor', selectedColor);
                 $colorpickerPreview.find('.color-tabs').css('color', textColor);
                 $colorpickerPreview.find('.color-text').css('color', textColor);
                 $sliderSaturation.css('backgroundColor', pickerColor.toHex(pickerColor.value.h, 1, 1, 1));
+                if ($colorpicker.hasClass("position-left") || $colorpicker.hasClass("position-right")) {
+                    $colorpickerCaret.css('border-color', selectedColor);
+                } else {
+                    $colorpickerCaret.css('border-color', "#fff");
+                }
             };
 
             var mousemove = function(event) {
@@ -496,7 +506,6 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                 $scope.$apply(function() {
                     $scope.color = newColor;
                 });
-
                 return false;
             };
 
@@ -520,7 +529,7 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                 previewColor();
             };
 
-            var getColorpickerTemplatePosition = function(event) {
+            var getColorpickerTemplatePosition = function() {
                 var positionValue;
                 var colorpickerWidth = $colorpicker.width();
                 var colorpickerHeight = $colorpicker.height();
@@ -541,21 +550,21 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                         'left': pageX - colorpickerWidth + 10
                     };
                     $colorpicker.addClass('position-left');
-                } else if (pageX > colorpickerWidth && winHeight - pageY < colorpickerHeight) {
-                    positionValue = {
-                        'top': pageY - colorpickerHeight + 25,
-                        'left': pageX - colorpickerWidth + 10
-                    };
-                    $colorpicker.addClass('position-top');
                 } else if (pageX < colorpickerWidth && winHeight - pageY >= colorpickerHeight) {
                     positionValue = {
                         'top': pageY - 6,
                         'left': pageX + 20
                     };
                     $colorpicker.addClass('position-right');
+                } else if (pageX > colorpickerWidth && winHeight - pageY < colorpickerHeight) {
+                    positionValue = {
+                        'top': pageY - colorpickerHeight + 35,
+                        'left': pageX - colorpickerWidth + 10
+                    };
+                    $colorpicker.addClass('position-top');
                 } else {
                     positionValue = {
-                        'top': pageY - colorpickerHeight + 25,
+                        'top': pageY - colorpickerHeight + 35,
                         'left': pageX + 20
                     };
                     $colorpicker.addClass('position-bottom');
@@ -572,17 +581,17 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                 pickerColor.setColor(lastColor);
                 update();
                 var cookieColorArr = Helper.getCookie(cookieName);
-                cookieColorArr = cookieColorArr === null ? []:cookieColorArr.split("|");
+                cookieColorArr = cookieColorArr === null ? [] : cookieColorArr.split("|");
                 $scope.$apply(function() {
                     $scope.show = true;
                     $scope.historyColorboxs = cookieColorArr;
                 });
-                $colorpicker.css(getColorpickerTemplatePosition(event));
+                $colorpicker.css(getColorpickerTemplatePosition());
                 $mask.css({
-                    'z-index': parseInt(new Date().getTime(),10)
+                    'z-index': parseInt(new Date().getTime(), 10)
                 });
                 $colorpicker.css({
-                    'z-index': parseInt(new Date().getTime(),10)
+                    'z-index': parseInt(new Date().getTime(), 10)
                 });
             };
 
@@ -600,7 +609,6 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
             };
             var setColorCookie = function() {
                 var cookieValue = pickerColor[thisFormat]();
-
                 if (Helper.enabledCookie(cookieName)) {
                     var lastCookieValue = Helper.getCookie(cookieName);
                     var lastCookieArray = lastCookieValue.split("|");
@@ -623,7 +631,7 @@ angular.module('ui.colorpicker', ['pascalprecht.translate'])
                     Helper.setCookie(cookieName, cookieValue);
                 }
             };
-            //fix scrolling or resizing bug
+            //reset colorpicker position
             $document.bind('scroll', function() {
                 fixPosition();
             });
