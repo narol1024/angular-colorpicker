@@ -6,11 +6,18 @@
  */
 angular.module('ui.colorpicker', [])
     .value('colorpicker.language', {
-        "zh-CN": {
+        "zh-cn": {
             "PALLETE": "经典",
             "WHELL": "自定义",
             "HISTORY": "历史记录",
             "SELECT": "选择",
+            "CANCEL": "取消"
+        },
+        "zh-tw":{
+            "PALLETE": "經典",
+            "WHELL": "自定義",
+            "HISTORY": "歷史記錄",
+            "SELECT": "選擇",
             "CANCEL": "取消"
         },
         "en": {
@@ -350,7 +357,7 @@ angular.module('ui.colorpicker', [])
                 "rgba(0,0,0,1)"
             ];
             $scope.historyColorboxs = [];
-            var languageWords = $language[attrs.colorLanguage || "zh-CN"];
+            var languageWords = $language[attrs.colorLanguage || "zh-cn"];
             console.info(languageWords);
             var thisFormat = (attrs.colorType || "hex");
             var cookieName = 'historyColor-' + thisFormat;
