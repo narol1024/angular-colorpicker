@@ -11,7 +11,7 @@
 - **支持语言设置**  默认是中文
 
 a beautiful color picker based on angularJS.It supports the following features:
-- **Three modes of picker**  pallete, whell, history
+- **3 modes of picker**  pallete, custom, history
 - **Color types**  rgb, rgba ,hex.
 - **Languages**  zh-cn, zh-tw, en, pt.
 
