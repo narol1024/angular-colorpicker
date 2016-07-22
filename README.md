@@ -17,7 +17,7 @@ a beautiful color picker based on angularJS.It supports the following features:
 
 ####Requirements
 - **jquery**
-- **angular 1.3.x**（use the oneBind(::)）
+- **angular 1.3.x**（one-time binding）
 
 ####Install
 > bower install angular-colorpicker
