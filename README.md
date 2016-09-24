@@ -8,7 +8,7 @@
 This directive is now obsolete. A new initiative, more active is available at [angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker).
 
 ####Demo
-[click here](http://w3cin.com/demo/angular-colorpicker/example/index.html)
+[click here](http://w3cin.com/demo/angular-components/angular-colorpicker/)
 
 
 一个基于angularJS的颜色选择器，目前具备以下特性：
