@@ -1,6 +1,12 @@
 ###angular-colorpicker v1.1.0
 
 ===========================
+###注意
+该颜色选择器将作为ui组件的形式并入[angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker)。此版本不再维护。
+
+###Annoucement
+This directive is now obsolete. A new initiative, more active is available at [angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker).
+
 ####Demo
 [click here](http://w3cin.com/demo/angular-colorpicker/example/index.html)
 
