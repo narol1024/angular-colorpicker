@@ -7,29 +7,36 @@
 angular.module('ui.colorpicker', [])
     .value('colorpicker.language', {
         "zh-cn": {
-            "PALLETE": "经典",
-            "WHELL": "自定义",
+            "PALETTE": "经典",
+            "WHEEL": "自定义",
             "HISTORY": "历史记录",
             "SELECT": "选择",
             "CANCEL": "取消"
         },
         "zh-tw":{
-            "PALLETE": "經典",
-            "WHELL": "自定義",
+            "PALETTE": "經典",
+            "WHEEL": "自定義",
             "HISTORY": "歷史記錄",
             "SELECT": "選擇",
             "CANCEL": "取消"
         },
         "en": {
-            "PALLETE": "Pallete",
-            "WHELL": "Whell",
+            "PALETTE": "Palette",
+            "WHEEL": "Wheel",
             "HISTORY": "History",
             "SELECT": "Select",
             "CANCEL": "Cancel"
         },
+        "fr": {
+            "PALETTE": "Palette",
+            "WHEEL": "Roue",
+            "HISTORY": "Historique",
+            "SELECT": "Sélectionner",
+            "CANCEL": "Annuler"
+        },
         "pt": {
-            "PALLETE": "Paleta",
-            "WHELL": "Personalizar",
+            "PALETTE": "Paleta",
+            "WHEEL": "Personalizar",
             "HISTORY": "Recentes",
             "SELECT": "Selecionar",
             "CANCEL": "Cancelar"
@@ -358,13 +365,12 @@ angular.module('ui.colorpicker', [])
             ];
             $scope.historyColorboxs = [];
             var languageWords = $language[attrs.colorLanguage || "zh-cn"];
-            console.info(languageWords);
             var thisFormat = (attrs.colorType || "hex");
             var cookieName = 'historyColor-' + thisFormat;
             var target = angular.element(document.body);
             /*
-            "PALLETE": "经典",
-            "WHELL": "自定义",
+            "PALETTE": "经典",
+            "WHEEL": "自定义",
             "HISTORY": "历史记录",
             "SELECT": "选择",
             "CANCEL": "取消"
@@ -376,8 +382,8 @@ angular.module('ui.colorpicker', [])
                 '       <div class="inner">' +
                 '       <div class="color-text"></div>' +
                 '       <div class="color-tabs">' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 1]" ng-click="toggleTab(1)">'+languageWords["PALLETE"]+'</div>' +
-                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 2]" ng-click="toggleTab(2)">'+languageWords["WHELL"]+'</div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 1]" ng-click="toggleTab(1)">'+languageWords["PALETTE"]+'</div>' +
+                '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 2]" ng-click="toggleTab(2)">'+languageWords["WHEEL"]+'</div>' +
                 '        <div class="color-tab" ng-class="{true: \'active\', false: \'\'}[colorTab === 3]" ng-click="toggleTab(3)">'+languageWords["HISTORY"]+'</div>' +
                 '       </div>' +
                 '       </div>' +

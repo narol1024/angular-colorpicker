@@ -2,10 +2,10 @@
 ![angular-colorpicker](https://github.com/linjinying/angular-colorpicker/blob/master/screenshot.png)  
 
 ###注意
-该颜色选择器将作为ui组件的形式并入[angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker)。此版本不再维护。
+该颜色选择器将作为ui组件的形式并入[angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker)。
 
 ###Annoucement
-This directive is now obsolete. A new initiative, more active is available at [angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker).
+a new initiative, more active is available at [angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker).
 
 ####Demo
 [click here](http://w3cin.com/demo/angular-components/angular-colorpicker/)
