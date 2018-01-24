@@ -1,13 +1,13 @@
 ## angular-colorpicker
 ![angular-colorpicker](https://github.com/linjinying/angular-colorpicker/blob/master/screenshot.png)  
 
-###注意
+### 注意
 该颜色选择器将作为ui组件的形式并入[angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker)。
 
-###Annoucement
+### Annoucement
 a new initiative, more active is available at [angular-components](https://github.com/linjinying/angular-components/tree/master/angular-colorpicker).
 
-####Demo
+#### Demo
 [click here](http://w3cin.com/demo/angular-components/angular-colorpicker/)
 
 
@@ -21,16 +21,16 @@ a beautiful color picker based on angularJS.It supports the following features:
 - **Color types**  rgb, rgba ,hex.
 - **Languages**  zh-cn, zh-tw, en, pt.
 
-####Requirements
+#### Requirements
 - **jquery**
 - **angular 1.3.x**（one-time binding）
 
-####Install
+#### Install
 > bower install angular-colorpicker
 
 > npm install angular-colorpicker
 
-####Basic Usage
+#### Basic Usage
 ```html
 <colorpicker color="color" color-type="rgba" color-language="zh-CN"></colorpicker>
 var app = angular.module('app',['ui.colorpicker']);
@@ -45,7 +45,7 @@ var app = angular.module('app',['ui.colorpicker']);
 #### Browser Support
 `ie9+`  `chrome` `firefox` `safari`
 
-####License
+#### License
 --------
 This colopicker plugin is licensed under the MIT license.
 
